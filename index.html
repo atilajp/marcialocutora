@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Márcia Locutora - Home Studio</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Atualização para Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <style>
         /* Fundo da página */
@@ -69,7 +69,7 @@
         }
 
         .btn-custom {
-            background-color: #ae115b;;
+            background-color: #ae115b;
             color: #fff;
             font-weight: bold;
             padding: 10px 20px;
@@ -85,11 +85,11 @@
             background-color: #f08d8d;
         }
 		
-		.botao-flutuante {
-			position: fixed;
-			bottom: 20px;
-			right: 20px;
-            background-color: #ae115b;;
+        .botao-flutuante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ae115b;
             color: #fff;
             font-weight: bold;
             padding: 10px 20px;
@@ -99,14 +99,142 @@
             font-size: 1rem;
             transition: background-color 0.3s;
             border: none;
+        }
+
+        .botao-flutuante:hover {
+            background-color: #f08d8d;
+        }
+
+		.logo-slider-container {
+			overflow: hidden;
+			position: relative;
+			width: 100%;
+			background-color: #3b1b3f;
+			padding: 10px 0;
+			border-radius: 10px;
+			height: 100px; /* Ajuste o tamanho conforme necessário */
 		}
 
-		.botao-flutuante:hover {
-            background-color: #f08d8d;
+		.logo-slider {
+			display: flex;
+			align-items: center;
+			position: relative;
+			gap: 40px; /* Espaço entre logos */
+			animation: scroll-logos 20s linear infinite;
+			will-change: transform;
 		}
-    </style>
+
+		.logo {
+			height: 80px;
+			flex-shrink: 0; /* Evita que as logos encolham */
+		}
+
+		/* Movimento contínuo */
+		@keyframes scroll-logos {
+			0% {
+				transform: translateX(0%);
+			}
+			100% {
+				transform: translateX(-100%);
+			}
+		}
+
+		/* Menu Lateral */
+		.side-menu {
+		  height: 100%;
+		  width: 0; /* Inicialmente fechado */
+		  position: fixed;
+		  top: 0;
+		  left: 0;
+		  background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro */
+		  overflow-x: hidden;
+		  transition: 0.3s; /* Transição suave para a largura */
+		  padding-top: 60px;
+		}
+
+		/* Itens do menu */
+		.side-menu .menu-items {
+		  list-style-type: none;
+		  padding: 0;
+		  margin: 0;
+		}
+
+		.side-menu .menu-items li {
+		  padding: 8px 16px;
+		}
+
+		.side-menu .menu-items li a {
+		  text-decoration: none;
+		  color: #fff;
+		  font-size: 1.5rem;
+		  display: block;
+		  transition: background-color 0.3s;
+		}
+
+		.side-menu .menu-items li a:hover {
+		  background-color: #575757;
+		}
+
+		/* Estilo do botão de abrir */
+		#openMenuBtn {
+		  font-size: 30px;
+		  background-color: transparent;
+		  border: none;
+		  color: #000;
+		  cursor: pointer;
+		  padding: 15px;
+		  position: fixed;
+		  top: 10px;
+		  left: 10px;
+		  z-index: 1100; /* Fica acima do menu */
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		  width: 50px;
+		  height: 50px;
+		  border-radius: 50%;
+		  background-color: #ae115b; /* Cor de fundo roxo */
+		}
+
+		#openMenuBtn::before {
+		  content: '';
+		  width: 20px;
+		  height: 20px;
+		  border-radius: 50%;
+		  background-color: #fff; /* Bolinha branca no meio do círculo */
+		}
+
+		#openMenuBtn.open {
+		  color: #fff;
+		}
+
+
+	</style>
+	
 </head>
+
 <body>
+
+<!-- Botão para abrir o menu -->
+<button id="openMenuBtn" onclick="toggleMenu()">☰</button>
+
+<!-- Menu Lateral -->
+<div id="sideMenu" class="side-menu">
+  <ul class="menu-items">
+    <li><a href="#voz-versatil" onclick="closeMenu()">Topo</a></li>
+    <li><a href="#voz-versatil" onclick="closeMenu()">Voz Versátil</a></li>
+    <li><a href="#marcia-domingos" onclick="closeMenu()">Márcia Domingos</a></li>
+    <li><a href="#locucao-profissional" onclick="closeMenu()">Locução Profissional</a></li>
+    <li><a href="#estilos-de-locucao" onclick="closeMenu()">Estilos de Locução</a></li>
+    <li><a href="#banco-de-talentos" onclick="closeMenu()">Banco de Talentos</a></li>
+    <li><a href="#outros-servicos" onclick="closeMenu()">Outros Serviços</a></li>
+    <li><a href="#edicao-da-ideia" onclick="closeMenu()">Edição da Ideia</a></li>
+    <li><a href="#avaliacoes-clientes" onclick="closeMenu()">Avaliações Clientes</a></li>
+    <li><a href="#referencia-na-area" onclick="closeMenu()">Referência na Área</a></li>
+  </ul>
+</div>
+
+
 
 <!-- Seção 1: Voz Versátil -->
 <div class="main-section section" id="voz-versatil">
@@ -200,7 +328,7 @@
                 <div class="card" style="background-color: #fff; color: #333; margin-bottom: 20px;">
                     <div class="card-body">
                         <h5 class="card-title">MANIFESTO</h5>
-                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/KjKZ8X4iqOs?controls=0" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/I5-mZKC5N58?controls=0" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
                     </div>
                 </div>
@@ -242,22 +370,23 @@
 
         <!-- Linha para os vídeos -->
         <div class="row" style="margin-top: 40px;">
-            <div class="col-md-4 text-center">
+            <div class="col-md-6 text-center">
                 <div class="card" style="background-color: #fff; color: #333; margin-bottom: 20px; height: 300px;">
                     <div class="card-body">
                         <h5 class="card-title">VOZ DA AURORA - INFANTIL</h5>
-                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/KjKZ8X4iqOs?controls=0" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/-v2TOKHEqZs?controls=0" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4 text-center">
+            <div class="col-md-6 text-center">
                 <div class="card" style="background-color: #fff; color: #333; margin-bottom: 20px; height: 300px;">
                     <div class="card-body">
                         <h5 class="card-title">VOZ DA MARÍLIA - JOVEM</h5>
-                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/bGwhbtQjqpg?controls=0" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="100%" height="200" src="https://www.youtube.com/embed/WgDmxwcDveM?controls=0" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
+			<!--
             <div class="col-md-4 text-center">
                 <div class="card" style="background-color: #fff; color: #333; margin-bottom: 20px; height: 300px;">
                     <div class="card-body">
@@ -266,6 +395,7 @@
                     </div>
                 </div>
             </div>
+			-->
         </div>
     </div>
 </div>
@@ -336,14 +466,13 @@
             <div class="col-md-6 text-center">
                 <div class="card" style="background-color: #fff; color: #333; margin-bottom: 20px;">
                     <div class="card-body">
-                        <iframe width="100%" height="400" src="https://www.youtube.com/embed/KjKZ8X4iqOs?controls=0" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <iframe width="100%" height="400" src="https://www.youtube.com/embed/pCvTRsq8EIM?controls=0" title="YouTube video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <!-- Seção 8: Avaliações de Clientes -->
 <div class="section" id="avaliacoes-clientes" style="background-color: #000; color: #fff; padding: 60px 20px;">
@@ -378,19 +507,115 @@
 	</div>
 </div>
 
+<!-- Seção 9: Referência na Área -->
+<div class="section" id="referencia-na-area" style="background-color: #fff; padding: 60px 20px;">
+    <div class="container">
+        <!-- Primeira linha: Título e Logomarca -->
+        <div class="row align-items-center mb-5">
+            <div class="col-md-2 text-left">
+                <img src="Images/logo-marcia.png" alt="Logomarca" class="img-fluid" style="max-height: 80px;">
+            </div>
+            <div class="col-md-10 text-left">
+                <h2 style="font-size: 2.5rem; color: #000;">TRABALHE COM QUEM É REFERÊNCIA NA ÁREA</h2>
+            </div>
+        </div>
 
-    <!-- Seção 9: Referência na Área -->
-    <div class="section" id="referencia-na-area">
-        <h2>Referência na Área</h2>
-        <p>Construímos uma trajetória sólida, sendo uma referência em locução e comunicação.</p>
-    </div>
+        <!-- Segunda linha: Quadrados com informações -->
+        <div class="row text-center mb-5">
+            <div class="col-md-3">
+                <div style="background-color: #3b1b3f; color: #fff; padding: 20px; border-radius: 10px;">
+                    <h3 style="font-size: 2rem;">+5 ANOS</h3>
+                    <p style="margin: 0;">Locução</p>
+					<p style="margin: 0;">Narração</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="background-color: #3b1b3f; color: #fff; padding: 20px; border-radius: 10px;">
+                    <h3 style="font-size: 2rem;">+25</h3>
+                    <p style="margin: 0;">Marcas</p>
+					<p style="margin: 0;">Renomadas</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="background-color: #3b1b3f; color: #fff; padding: 20px; border-radius: 10px;">
+                    <h3 style="font-size: 2rem;">+20 ANOS</h3>
+                    <p style="margin: 0;">Textos</p>
+                    <p style="margin: 0;">Informativos</p>					
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="background-color: #3b1b3f; color: #fff; padding: 20px; border-radius: 10px;">
+                    <h3 style="font-size: 2rem;">+3.4 MIL</h3>
+                    <p style="margin: 0;">Horas de</p>
+					<p style="margin: 0;">Gravação</p>
+                </div>
+            </div>
+        </div>
 
-    <!-- Seção 10: Do que Você Precisa -->
-    <div class="section" id="do-que-voce-precisa">
-        <h2>Do que Você Precisa</h2>
-        <p>Estamos prontos para atender à sua necessidade. Vamos conversar?</p>
+        <!-- Terceira linha: Logos passando continuamente -->
+        <div class="row">
+            <div class="col-12">
+                <div class="logo-slider-container">
+                    <div class="logo-slider">
+                        <!-- Adicione as logos aqui -->
+                        <img src="Images/Logos/logo1.png" alt="Logo 1" class="logo">
+                        <img src="Images/Logos/logo2.png" alt="Logo 2" class="logo">
+                        <img src="Images/Logos/logo3.png" alt="Logo 3" class="logo">
+                        <img src="Images/Logos/logo4.png" alt="Logo 4" class="logo">
+                        <img src="Images/Logos/logo5.png" alt="Logo 5" class="logo">
+                        <img src="Images/Logos/logo6.png" alt="Logo 6" class="logo">
+                        <img src="Images/Logos/logo7.png" alt="Logo 7" class="logo">
+                        <img src="Images/Logos/logo8.png" alt="Logo 8" class="logo">
+                        <img src="Images/Logos/logo9.png" alt="Logo 9" class="logo">
+                        <img src="Images/Logos/logo10.png" alt="Logo 10" class="logo">
+                        <img src="Images/Logos/logo11.png" alt="Logo 11" class="logo">
+                        <img src="Images/Logos/logo12.png" alt="Logo 12" class="logo">
+						<img src="Images/Logos/logo13.png" alt="Logo 13" class="logo">
+                        <img src="Images/Logos/logo14.png" alt="Logo 14" class="logo">
+                   </div>
+                </div>
+            </div>
+        </div>
     </div>
-	
+</div>
+
+<!-- JavaScript -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const slider = document.querySelector(".logo-slider");
+    const logos = [...document.querySelectorAll(".logo")];
+    
+    // Duplicar logos para criar um efeito de loop contínuo
+    logos.forEach(logo => {
+        const clone = logo.cloneNode(true);
+        slider.appendChild(clone);
+    });
+});
+</script>
+
+<script>
+// Função para alternar o menu (abrir ou fechar)
+function toggleMenu() {
+  const sideMenu = document.getElementById("sideMenu");
+  const currentWidth = sideMenu.style.width;
+
+  if (currentWidth === "250px") {
+    // Fechar o menu
+    sideMenu.style.width = "0";
+  } else {
+    // Abrir o menu
+    sideMenu.style.width = "250px";
+  }
+}
+
+// Fechar o menu ao clicar em qualquer item
+function closeMenu() {
+  document.getElementById("sideMenu").style.width = "0"; // Fechar o menu
+}
+
+</script>
+
+
 <!-- HTML para o botão flutuante -->
 <a href="https://wa.me/558388055736" class="botao-flutuante" target="_blank">
     <img src="Images/whatsapp-logo-transparent.png" alt="Fale conosco" style="width: 40px; height: 40px;">
@@ -399,12 +624,10 @@
 <footer style="background-color: #f8f9fa; color: #343a40; padding: 10px 0; text-align: center;">
     <div class="container">
         <p style="margin: 0;">Márcia Locutora</p>
-        <p style="margin: 0;"><a href="#contato" style="color: #007bff; text-decoration: none;">Fale Conosco</a></p>
     </div>
 </footer>
-    <!-- Bootstrap JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
