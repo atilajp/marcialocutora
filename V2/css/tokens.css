@@ -1,0 +1,69 @@
+:root {
+  /* Paleta inspirada na referência: preto, branco, magenta, laranja e rosa. */
+  --color-brand-50: #fff1f7;
+  --color-brand-100: #ffd7e9;
+  --color-brand-300: #f08d8d;
+  --color-brand-500: #ae115b;
+  --color-brand-600: #8f0d4b;
+  --color-brand-700: #6d0b3a;
+
+  --color-accent-400: #ff8a4c;
+  --color-accent-500: #ff5c00;
+  --color-accent-600: #d94d00;
+
+  --color-purple-900: #3b1b3f;
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #f7f4f6;
+  --color-neutral-100: #ece7eb;
+  --color-neutral-200: #d5ccd3;
+  --color-neutral-500: #9a9098;
+  --color-neutral-700: #cfc7ce;
+  --color-neutral-900: #171317;
+  --color-dark: #1a1a1a;
+  --color-dark-soft: #242024;
+
+  --color-success: #5fcf91;
+  --color-warning: #ffc857;
+  --color-danger: #ff7777;
+
+  --font-family-base: Arial, Helvetica, sans-serif;
+  --font-family-display: "Now", Arial, Helvetica, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: clamp(1.75rem, 3vw, 2.75rem);
+  --font-size-3xl: clamp(2.5rem, 7vw, 6rem);
+
+  --line-height-tight: 1.05;
+  --line-height-base: 1.55;
+  --line-height-loose: 1.8;
+
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+
+  --container-max-width: 75rem;
+  --header-height: 4.5rem;
+  --hero-min-height: min(52rem, 100svh);
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-pill: 999px;
+  --border-width: 1px;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.16);
+  --shadow-md: 0 1rem 3rem rgb(0 0 0 / 0.28);
+  --shadow-glow: 0 0 2rem rgb(174 17 91 / 0.32);
+  --transition-fast: 160ms ease;
+  --transition-base: 280ms ease;
+}
