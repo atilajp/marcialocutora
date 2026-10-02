@@ -19,20 +19,20 @@
 @layer base {
   html {
     scroll-behavior: smooth;
-    /* âncoras do menu (#locucao-profissional etc.) não ficam coladas no topo */
-    scroll-padding-top: var(--esp-4);
+    /* âncoras do menu não ficam coladas no topo (cabeçalho fixo) */
+    scroll-padding-top: 5.5rem;
   }
 
   body {
     background: var(--cor-fundo);
     color: var(--cor-texto);
-    /* o site usa Arial/Helvetica: mantém a mesma cara */
-    font-family: Arial, Helvetica, system-ui, sans-serif;
+    font-family: "Segoe UI", Arial, Helvetica, system-ui, sans-serif;
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
 
-    display: grid;
-    grid-template-rows: auto 1fr auto;
+    /* coluna: cabeçalho em cima, main cresce, rodapé grudado embaixo */
+    display: flex;
+    flex-direction: column;
     min-height: 100dvh;
   }
 

@@ -1,44 +1,58 @@
-/* Layout = esqueleto da página: menu, hero, faixas de cor, rodapé.
-   Nada aqui sabe o que é um "card" — isso é assunto de componentes.css. */
+/* Layout = esqueleto da página: cabeçalho fixo, hero, banda de título,
+   faixas de cor, conteúdo solto e rodapé.
+   Nada aqui sabe o que é um "card" — isso é assunto de components.css.
+
+   Uma régua só para TODO o site: --trilho. Cabeçalho, hero, banda de título
+   (.pagina-topo), faixas e conteúdo solto começam todos na mesma borda. */
 @layer layout {
 
-  /* --- trilho central reaproveitável ---------------------------------- */
-  .cabecalho > *,
-  .rodape > nav {
-    width: min(100%, var(--largura-pagina));
-    margin-inline: auto;
-  }
-
-  /* faixas e hero: o trilho central vem do padding lateral, assim título,
-     parágrafo e lista começam todos na mesma borda esquerda */
-  .faixa,
-  .hero {
+  :root {
+    /* largura disponível fora da página de 72rem, nunca menos que 1.5rem */
     --trilho: max(var(--esp-3), calc((100% - var(--largura-pagina)) / 2));
-    padding-inline: var(--trilho);
   }
 
-  /* --- cabeçalho (opcional: o site usa só o menu flutuante) ------------ */
+  /* --- cabeçalho fixo ---------------------------------------------------- */
   .cabecalho {
     position: sticky;
     top: 0;
-    z-index: 10;
-    padding-inline: var(--esp-3);
+    z-index: 50;
+    padding-inline: var(--trilho);
     border-bottom: var(--borda);
-    background: color-mix(in srgb, var(--cor-fundo) 88%, transparent);
-    backdrop-filter: blur(8px);
+    background: var(--cor-fundo);
+    box-shadow: 0 2px 14px rgb(42 18 48 / .08);
   }
 
-  .cabecalho > * {
+  .cabecalho__trilho {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    gap: var(--esp-2);
-    min-height: 3.5rem;
+    gap: var(--esp-2) var(--esp-3);
+    min-height: 4.75rem;
   }
 
-  .cabecalho .marca { font-size: 1.05rem; font-weight: 700; }
-  .cabecalho .marca a { color: var(--cor-texto); }
+  /* marca: ícone em degradê + nome em duas linhas */
+  .marca {
+    display: flex;
+    align-items: center;
+    gap: .7rem;
+    text-decoration: none;
+  }
+  .marca__icone { width: 2.6rem; height: 2.6rem; flex: none; }
+  .marca__nome {
+    display: grid;
+    font-size: 1.1rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--cor-texto);
+  }
+  .marca__nome span {
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: var(--cor-marca);
+  }
 
   .cabecalho nav ul {
     display: flex;
@@ -50,77 +64,139 @@
 
   .cabecalho nav a {
     display: inline-block;
-    padding-block: var(--esp-1);
-    color: var(--cor-texto-2);
+    padding-block: .35rem;
+    border-bottom: 3px solid transparent;
+    color: var(--cor-texto);
+    font-size: .95rem;
+    font-weight: 600;
+    text-decoration: none;
   }
   .cabecalho nav a:hover { color: var(--cor-marca); }
 
   /* página atual: cor E sublinhado, para não depender só da cor */
   .cabecalho nav a[aria-current="page"] {
     color: var(--cor-marca);
-    text-decoration: underline;
+    border-bottom-color: var(--cor-marca);
   }
 
-  /* --- menu flutuante: botão redondo magenta + painel, sem JS ----------
-     <details class="menu"><summary class="menu-botao">…</summary><nav>…</nav></details> */
-  .menu {
-    position: fixed;
-    inset-block-start: var(--esp-2);
-    inset-inline-start: var(--esp-2);
-    z-index: 20;
+  /* celular: empilha (nunca esconde o menu — acessibilidade) */
+  @media (max-width: 860px) {
+    .cabecalho { position: static; }
+    .cabecalho__trilho { justify-content: center; text-align: center; }
+    .cabecalho nav ul { justify-content: center; }
   }
 
-  .menu-botao {
+  /* --- main: solto no trilho; bandas sangram de ponta a ponta ------------ */
+  main { flex: 1 0 auto; }
+
+  main > * { margin-inline: var(--trilho); }
+  main > .hero,
+  main > .pagina-topo,
+  main > .faixa,
+  main > article { margin-inline: 0; }
+
+  /* blog: o <article> sangra como as faixas; o trilho volta a valer dentro */
+  main > article > * { margin-inline: var(--trilho); }
+  main > article > .pagina-topo,
+  main > article > .faixa { margin-inline: 0; }
+
+  /* espaçamento vertical do conteúdo solto */
+  main > h2,
+  main > article > h2 { margin-block-start: var(--esp-4); }
+
+  main > * + p,
+  main > * + ul,
+  main > * + ol,
+  main > * + form,
+  main > * + div,
+  main > * + blockquote,
+  main > article > * + p,
+  main > article > * + ul,
+  main > article > * + ol,
+  main > article > * + div { margin-block-start: var(--esp-3); }
+
+  /* h2 solto (fora de faixa) ganha barra lateral na cor da marca */
+  main > h2,
+  main > article > h2 {
+    border-inline-start: 4px solid var(--cor-marca);
+    padding-inline-start: .8rem;
+  }
+
+  main > :last-child { margin-block-end: var(--esp-5); }
+  main > .faixa:last-child,
+  main > .hero:last-child,
+  main > article:last-child { margin-block-end: 0; }
+  main > article > :last-child { margin-block-end: var(--esp-5); }
+
+  /* --- banda de título (.pagina-topo) ------------------------------------
+     Abre cada página (h1 + linha de abertura) sobre degradê roxo→magenta. */
+  .pagina-topo {
     display: grid;
-    place-items: center;
-    width: 3rem;
-    height: 3rem;
-    border-radius: 50%;
-    background: var(--cor-botao);
-    color: var(--cor-botao-txt);
-    font-size: 1.5rem;
-    line-height: 1;
-    cursor: pointer;
-    list-style: none;                 /* tira a setinha padrão do <summary> */
-    transition: filter var(--transicao);
+    gap: var(--esp-2);
+    padding-block: var(--esp-5) var(--esp-4);
+    padding-inline: var(--trilho);
+    background-image: linear-gradient(120deg, var(--marca-roxo) 0%, #5a2160 45%, var(--marca-magenta) 130%);
+    color: #ffffff;
   }
-  .menu-botao::-webkit-details-marker { display: none; }
-  .menu-botao:hover { filter: brightness(1.1); }
+  .pagina-topo h1 { color: #ffffff; }
+  .pagina-topo p { color: #f6ecf2; }
 
-  .menu nav {
-    display: flex;
-    flex-direction: column;
-    margin-block-start: var(--esp-1);
-    min-width: 14rem;
-    padding: var(--esp-1);
-    border: var(--borda);
-    border-radius: var(--raio);
-    background: var(--cor-elevado);
-    box-shadow: var(--sombra);
-  }
-
-  .menu nav a {
-    padding: .55rem var(--esp-2);
-    border-radius: var(--raio-sm);
+  /* --- hero (home) -------------------------------------------------------
+     A foto entra pelo HTML:
+     <div class="hero" style="--hero-img:url(assets/home-studio.jpg)"> */
+  .hero {
+    position: relative;
+    display: grid;
+    align-content: center;
+    gap: var(--esp-3);
+    min-height: min(86vh, 42rem);
+    padding-block: var(--esp-5);
+    padding-inline: var(--trilho);
+    overflow: hidden;
+    /* papéis do tema escuro, só dentro do hero */
+    --cor-texto:   #ffffff;
+    --cor-texto-2: #e8dce6;
+    --cor-marca:   var(--marca-salmao);
+    --cor-linha:   rgb(255 255 255 / .25);
     color: var(--cor-texto);
+    background-color: #140a16;
+    background-image:
+      linear-gradient(90deg, rgb(10 4 12 / .92) 0%, rgb(10 4 12 / .7) 42%, rgb(10 4 12 / .2) 72%, rgb(10 4 12 / .05) 100%),
+      var(--hero-img, none);
+    background-size: cover;
+    background-position: center;
   }
-  .menu nav a:hover { background: var(--cor-superficie); color: var(--cor-marca); }
+  .hero > * { max-width: 36rem; }
+  .hero h1 {
+    color: #ffffff;
+    font-size: clamp(2rem, 4.4vw, 3.4rem);
+  }
+  .hero p { color: #f3e9ef; }
 
-  /* --- conteúdo: faixas empilhadas, cada uma de ponta a ponta ----------- */
-  .conteudo { display: block; }
-
-  /* faixa = uma seção do site. O fundo vai até a borda da tela;
-     o conteúdo fica no trilho central. */
+  /* --- faixas: empilhadas, cada uma de ponta a ponta ---------------------- */
   .faixa {
     display: flex;
     flex-direction: column;
     gap: var(--esp-3);
     padding-block: var(--esp-5);
+    padding-inline: var(--trilho);
     background: var(--cor-fundo);
     color: var(--cor-texto);
   }
 
-  /* Variantes: redefinem os PAPÉIS só dentro da faixa.
+  /* h2 que abre a faixa: centralizado e na cor da marca */
+  .faixa > h2:first-child {
+    text-align: center;
+    color: var(--cor-marca);
+  }
+
+  /* CTA da faixa acompanha o título centralizado */
+  .faixa > .acoes {
+    max-width: none;
+    justify-content: center;
+  }
+
+  /* Variantes redefinem os PAPÉIS só dentro da faixa.
      Todo componente dentro dela se adapta sozinho. */
   .hero,
   .faixa--roxo,
@@ -131,71 +207,61 @@
     --cor-linha:   rgb(255 255 255 / .18);
   }
   .faixa--roxo  { --cor-fundo: var(--marca-roxo); --cor-superficie: #4a2650; }
-  .faixa--preta { --cor-fundo: #000000;           --cor-superficie: #1a0e1d; }
+  .faixa--preta { --cor-fundo: var(--preto);      --cor-superficie: #1a0e1d; }
 
-  .faixa--clara {
+  .faixa--clara,
+  .faixa--suave {
     --cor-fundo:      #ffffff;
-    --cor-superficie: #fdf5f9;
     --cor-texto:      #333333;
     --cor-texto-2:    #6a5666;
     --cor-marca:      var(--marca-magenta);
     --cor-linha:      rgb(59 27 63 / .14);
+    --cor-elevado:    #ffffff;
   }
+  .faixa--clara { --cor-superficie: #fdf5f9; }
+  .faixa--suave { --cor-fundo: #fdf5f9; --cor-superficie: #ffffff; }
 
-  /* título de faixa clara no magenta, como "Estilos de Locução" */
-  .faixa--clara h2.titulo-marca { color: var(--marca-magenta); }
-
-  /* --- hero -------------------------------------------------------------
-     A imagem entra pelo HTML: <section class="hero" style="--hero-img:url(Images/hero.jpg)"> */
-  .hero {
-    display: grid;
-    align-items: center;
-    min-height: min(100dvh, 46rem);
-    padding-block: var(--esp-5);
-    color: #ffffff;
-    background-color: var(--marca-roxo);
-    background-image:
-      linear-gradient(90deg, rgb(0 0 0 / .7), rgb(0 0 0 / .15) 70%),
-      var(--hero-img, none);
-    background-size: cover;
-    background-position: center;
-  }
-
-  .hero__grade {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
-    gap: var(--esp-4);
-    align-items: center;
-  }
-
-  .hero__texto {
-    display: grid;
-    gap: var(--esp-3);
-    justify-items: start;
-  }
-
-  .hero__logo { justify-self: center; width: min(100%, 22rem); }
-
-  /* --- rodapé ----------------------------------------------------------- */
+  /* --- rodapé: 3 colunas + faixa legal ----------------------------------- */
   .rodape {
-    padding: var(--esp-3);
-    text-align: center;
-    border-top: var(--borda);
-    background: var(--cor-superficie);
-    color: var(--cor-texto-2);
-    font-size: .9rem;
+    padding-block: var(--esp-4) var(--esp-3);
+    padding-inline: var(--trilho);
+    background: var(--marca-roxo-esc);
+    color: #e9dfe9;
+    font-size: .95rem;
   }
 
-  .rodape { display: grid; gap: var(--esp-3); }
-  .rodape nav { display: grid; gap: var(--esp-2); text-align: start; }
-  .rodape h2 { font-size: 1.05rem; }   /* h2 de rodapé não compete com os da página */
+  .rodape__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(15rem, 100%), 1fr));
+    gap: var(--esp-4);
+    padding-block-end: var(--esp-3);
+  }
+
+  .rodape h2 {
+    margin-block-end: var(--esp-2);
+    font-size: .95rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--marca-salmao);
+  }
+
+  .rodape__marca p { max-width: 26rem; color: #cdbfcf; }
 
   .rodape ul {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-    gap: var(--esp-1) var(--esp-3);
+    gap: .5rem;
     list-style: none;
     padding: 0;
   }
-  .rodape > p { margin-inline: auto; }
+
+  .rodape a { color: #e9dfe9; text-decoration: none; }
+  .rodape a:hover { color: #ffffff; text-decoration: underline; }
+
+  .rodape__legal {
+    padding-block-start: var(--esp-3);
+    border-top: 1px solid rgb(255 255 255 / .15);
+    color: #bdaec0;
+    font-size: .85rem;
+  }
+  .rodape__legal p { max-width: none; }
 }

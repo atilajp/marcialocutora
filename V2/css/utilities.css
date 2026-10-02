@@ -12,21 +12,23 @@
     white-space: nowrap;
   }
 
-  /* pular pro conteúdo: escondido até receber foco pelo teclado */
-  .pular {
+  /* pular pro conteúdo: escondido até receber foco pelo teclado.
+     (a classe era .pular; o HTML usa .skip-link em todas as páginas) */
+  .skip-link {
     position: absolute;
     inset-inline-start: var(--esp-2);
     inset-block-start: var(--esp-2);
     z-index: 100;
     padding: var(--esp-1) var(--esp-2);
     border-radius: var(--raio-sm);
-    background: var(--cor-botao);
-    color: var(--cor-botao-txt);
+    background: var(--marca-roxo);
+    color: #ffffff;
+    font-weight: 700;
     text-decoration: none;
-    transform: translateY(-200%);
+    transform: translateY(-250%);
     transition: transform var(--transicao);
   }
-  .pular:focus-visible { transform: translateY(0); }
+  .skip-link:focus { transform: translateY(0); }
 
   /* destaque em salmão, como o "com" do título do topo.
      Só use sobre fundo escuro (faixa--roxo, faixa--preta ou hero). */

@@ -6,64 +6,86 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Narração profissional de audiolivros | Márcia Locutora</title>
   <meta name="description" content="Narração profissional para audiolivros, histórias narradas e projetos editoriais com voz clara, envolvente e expressiva.">
+  <link rel="stylesheet" href="css/token.css">
   <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/componentes.css">
   <link rel="stylesheet" href="css/layout.css">
-  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/utilities.css">
 </head>
 <body>
 
-<header>
-  <a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
-  <p><strong><a href="">Márcia Locutora</a></strong></p>
-  <nav aria-label="Navegação principal">
-    <ul>
-      <li><a href="">Início</a></li>
-      <li><a href="locucao/">Locução</a></li>
-      <li><a href="voz/">Vozes</a></li>
-      <li><a href="portfolio/">Portfólio</a></li>
-      <li><a href="sobre/">Sobre</a></li>
-      <li><a href="contato/">Contato</a></li>
-    </ul>
-  </nav>
-  <p><a href="contato/">Solicitar orçamento</a></p>
+<header class="cabecalho">
+  <a class="skip-link" href="/V2/locucao/audiolivro/#conteudo">Pular para o conteúdo principal</a>
+  <div class="cabecalho__trilho">
+    <a class="marca" href="">
+      <svg class="marca__icone" viewBox="0 0 64 64" aria-hidden="true" focusable="false"><defs><linearGradient id="g-marca" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f5915e"/><stop offset="1" stop-color="#ae115b"/></linearGradient></defs><circle cx="32" cy="28" r="24" fill="url(#g-marca)"/><path d="M14 30a18 18 0 0 0 36 0" fill="none" stroke="url(#g-marca)" stroke-width="4" stroke-linecap="round"/><line x1="32" y1="48" x2="32" y2="56" stroke="#ae115b" stroke-width="4" stroke-linecap="round"/><g stroke="#fff" stroke-width="3" stroke-linecap="round"><line x1="22" y1="26" x2="22" y2="32"/><line x1="27" y1="21" x2="27" y2="37"/><line x1="32" y1="17" x2="32" y2="41"/><line x1="37" y1="22" x2="37" y2="36"/><line x1="42" y1="26" x2="42" y2="32"/></g></svg>
+      <span class="marca__nome">Márcia Locutora<span>Home Studio</span></span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <ul>
+        <li><a href="">Início</a></li>
+        <li><a href="locucao/" aria-current="page">Locução</a></li>
+        <li><a href="voz/">Vozes</a></li>
+        <li><a href="portfolio/">Portfólio</a></li>
+        <li><a href="sobre/">Sobre</a></li>
+        <li><a href="contato/">Contato</a></li>
+      </ul>
+    </nav>
+    <a class="botao botao--pequeno" href="contato/">Solicitar orçamento</a>
+  </div>
 </header>
 
-<main id="conteudo">
+<main id="conteudo" tabindex="-1">
 
-<h1>Narração profissional de audiolivros</h1>
+<div class="pagina-topo"><h1>Narração profissional de audiolivros</h1>
 <p>A narração de audiolivros exige presença, clareza e capacidade de sustentar a atenção do ouvinte ao longo da história. O trabalho de locução precisa equilibrar interpretação, ritmo e expressividade para manter o interesse e dar vida ao texto.</p>
-<section aria-labelledby="demo"><h2 id="demo">Demonstração de voz</h2>
+
+</div>
+<section class="faixa faixa--roxo" aria-labelledby="demo"><h2 id="demo">Demonstração de voz</h2>
 <div class="audio-placeholder" role="region" aria-label="Área reservada para demonstração de voz">
 <p>Espaço para demonstração de narração com destaque para expressão, clareza, timing e presença em audiolivros e projetos editoriais.</p>
 </div></section>
-<section aria-labelledby="projetos"><h2 id="projetos">Para quais projetos este serviço é indicado?</h2>
+<section class="faixa faixa--clara" aria-labelledby="projetos"><h2 id="projetos">Para quais projetos este serviço é indicado?</h2>
 <p>Esse serviço é indicado para audiolivros, histórias narradas, materiais editoriais, conteúdos em áudio e projetos que precisam dar vida a um texto por meio de voz. O roteiro e o contexto ajudam a definir a melhor interpretação para a obra.</p></section>
-<section aria-labelledby="processo"><h2 id="processo">Como funciona a narração de audiolivro</h2><ol><li>Recebimento do texto, objetivo e referências do projeto.</li><li>Definição da interpretação e do ritmo da leitura.</li><li>Gravação em ambiente preparado para captação profissional.</li><li>Edição, ajustes e entrega do arquivo final.</li></ol></section>
-<section aria-labelledby="duvidas"><h2 id="duvidas">Perguntas frequentes</h2>
+<section class="faixa faixa--suave" aria-labelledby="processo"><h2 id="processo">Como funciona a narração de audiolivro</h2><ol class="passos"><li>Recebimento do texto, objetivo e referências do projeto.</li><li>Definição da interpretação e do ritmo da leitura.</li><li>Gravação em ambiente preparado para captação profissional.</li><li>Edição, ajustes e entrega do arquivo final.</li></ol></section>
+<section class="faixa faixa--clara" aria-labelledby="duvidas"><h2 id="duvidas">Perguntas frequentes</h2>
 <p>Consulte a <a href="faq/">página de perguntas frequentes</a> ou <a href="contato/">solicite um orçamento</a>.</p></section>
 
 </main>
 
-<footer>
-  <nav aria-label="Navegação do rodapé">
-    <h2>Explore o site</h2>
-    <ul>
-      <li><a href="locucao/">Locução profissional</a></li>
-      <li><a href="voz/">Vozes e demos</a></li>
-      <li><a href="banco-de-talentos/">Banco de talentos</a></li>
-      <li><a href="servicos/">Serviços complementares</a></li>
-      <li><a href="portfolio/">Portfólio</a></li>
-      <li><a href="sobre/">Sobre Márcia Domingos</a></li>
-      <li><a href="depoimentos/">Depoimentos</a></li>
-      <li><a href="faq/">Perguntas frequentes</a></li>
-      <li><a href="blog/">Blog</a></li>
-      <li><a href="contato/">Contato</a></li>
-    </ul>
-  </nav>
-  <p>&copy; <span data-current-year></span> Márcia Locutora. Todos os direitos reservados.</p>
+<footer class="rodape">
+  <div class="rodape__grid">
+    <div class="rodape__marca">
+      <h2>Márcia Locutora</h2>
+      <p>Locução profissional, narração e produção de áudio em João Pessoa (PB), com atendimento a projetos de todo o Brasil.</p>
+    </div>
+    <nav aria-label="Navegação do rodapé">
+      <h2>Explore o site</h2>
+      <ul>
+        <li><a href="locucao/">Locução profissional</a></li>
+        <li><a href="voz/">Vozes e demos</a></li>
+        <li><a href="banco-de-talentos/">Banco de talentos</a></li>
+        <li><a href="servicos/">Serviços complementares</a></li>
+        <li><a href="portfolio/">Portfólio</a></li>
+      </ul>
+    </nav>
+    <nav aria-label="Mais páginas">
+      <h2>Mais</h2>
+      <ul>
+        <li><a href="sobre/">Sobre Márcia Domingos</a></li>
+        <li><a href="depoimentos/">Depoimentos</a></li>
+        <li><a href="faq/">Perguntas frequentes</a></li>
+        <li><a href="blog/">Blog</a></li>
+        <li><a href="contato/">Contato</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="rodape__legal">
+    <p>&copy; <span data-current-year>2026</span> Márcia Locutora. Todos os direitos reservados.</p>
+  </div>
 </footer>
 
 <script src="script.js" defer></script>
+<a class="fab-whatsapp" href="contato/" aria-label="Falar com Márcia pelo WhatsApp (link a configurar na implementação)">  <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 28l7.2-1.5c1.2.5 2.5.8 3.8.8 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.2 0-2.4-.3-3.5-.8l-.4-.2-4.3.9.9-4.2-.2-.4c-.9-1.4-1.4-3-1.4-4.6 0-5.4 4.4-9.8 9.8-9.8s9.8 4.4 9.8 9.8-4.3 9.3-9.7 9.3zm5.4-7.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/></svg></a>
 </body>
 </html>

@@ -11,12 +11,48 @@
     align-items: stretch;
   }
 
-  /* o container é CADA ITEM, não a lista: a query mede o card, não a tela */
+  /* o container é CADA ITEM, não a lista: a query mede o card, não a tela.
+     O item vira uma "ilha branca": funciona sobre qualquer faixa. */
   .lista-cards > li {
     container-type: inline-size;
     container-name: card;
-    display: grid;
+    position: relative;
+    display: block;
+    padding: var(--esp-3);
+    border: var(--borda);
+    border-radius: var(--raio);
+    background: var(--cor-cartao);
+    color: var(--cor-cartao-txt);
+    box-shadow: var(--sombra);
+    transition: transform var(--transicao), box-shadow var(--transicao);
   }
+  .lista-cards > li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgb(59 27 63 / .18);
+  }
+
+  /* quando o li começa com link, o card inteiro é clicável:
+     overlay cobre o card; o contorno do teclado sai no card, não no texto */
+  .lista-cards > li:has(> a)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+  .lista-cards > li:has(> a):has(a:focus-visible) {
+    outline: 2px solid var(--marca-magenta);
+    outline-offset: 2px;
+  }
+  .lista-cards > li a:focus-visible { outline: none; }
+
+  /* dentro do card as cores são fixas (card é branco em qualquer tema) */
+  .lista-cards > li > a {
+    color: var(--marca-magenta);
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .lista-cards > li:hover > a { text-decoration: underline; }
+  .lista-cards > li > a:hover { color: var(--marca-magenta); }
 
   /* ================= card de vídeo / áudio =================
      Branco em qualquer faixa, como no site. */
@@ -110,17 +146,21 @@
     .card-servico__icone { grid-row: span 2; }
   }
 
-  /* ================= depoimento ================= */
-  .depoimento {
+  /* ================= depoimento / blockquote ================= */
+  .depoimento,
+  main blockquote {
     display: grid;
     gap: var(--esp-2);
+    max-width: 46rem;
     padding: var(--esp-3);
     border-inline-start: 4px solid var(--marca-magenta);
     border-radius: 0 var(--raio) var(--raio) 0;
     background: var(--cor-superficie);
   }
-  .depoimento p { max-width: none; }
-  .depoimento cite {
+  .depoimento p,
+  main blockquote p { max-width: none; margin: 0; }
+  .depoimento cite,
+  main blockquote cite {
     color: var(--cor-texto-2);
     font-size: .9rem;
     font-style: normal;
@@ -198,6 +238,12 @@
     gap: var(--esp-2);
   }
 
+  /* versão curta do botão, para o cabeçalho */
+  .botao--pequeno {
+    padding: .55rem 1.15rem;
+    font-size: .8rem;
+  }
+
   /* ================= passos (lista ordenada de verdade, numeração nativa) ================= */
   .passos {
     display: grid;
@@ -226,34 +272,86 @@
   /* link dentro de parágrafo: sublinhado sempre (não depender só da cor) */
   p > a:not(.botao) { text-decoration: underline; }
 
-  /* ================= botão flutuante do WhatsApp ================= */
+  /* ================= botão flutuante do WhatsApp =================
+     Hoje aponta para contato/ (número real entra depois). */
   .fab-whatsapp {
     position: fixed;
-    inset-block-end: max(var(--esp-2), env(safe-area-inset-bottom));
-    inset-inline-end: var(--esp-2);
-    z-index: 30;
+    inset-block-end: max(1.3rem, env(safe-area-inset-bottom));
+    inset-inline-end: 1.3rem;
+    z-index: 60;
     display: grid;
     place-items: center;
-    width: 4.5rem;
-    height: 3.5rem;
-    border-radius: var(--raio-pill);
-    background: var(--cor-botao);
-    box-shadow: var(--sombra);
-    transition: filter var(--transicao), transform var(--transicao);
+    width: 3.75rem;
+    height: 3.75rem;
+    border-radius: 50%;
+    border: 3px solid #ffffff;
+    background: var(--marca-magenta);
+    box-shadow: 0 10px 26px rgb(0 0 0 / .4);
+    transition: transform var(--transicao);
   }
-  .fab-whatsapp:hover { filter: brightness(1.12); transform: scale(1.04); }
-  .fab-whatsapp img { width: 2rem; height: 2rem; }
+  .fab-whatsapp:hover { transform: scale(1.08); }
+  .fab-whatsapp svg { width: 1.7rem; height: 1.7rem; fill: #ffffff; }
 
-  /* ================= formulário de contato (#contato) ================= */
-  .formulario {
+  /* ================= placeholder de demonstração de áudio =================
+     Espaço reservado (player real entra depois); não é conteúdo inventado. */
+  .audio-placeholder {
+    display: grid;
+    gap: var(--esp-1);
+    justify-items: center;
+    max-width: 46rem;
+    margin-inline: auto;
+    padding: var(--esp-4) var(--esp-3);
+    border: 2px dashed var(--cor-linha);
+    border-radius: var(--raio);
+    background: var(--cor-superficie);
+    color: var(--cor-texto-2);
+    text-align: center;
+  }
+  .audio-placeholder p { max-width: none; margin: 0; }
+
+  /* ================= listas de artigo (blog) ================= */
+  main > article ul {
+    display: grid;
+    gap: .45rem;
+    max-width: var(--largura-texto);
+    padding-inline-start: 1.5rem;
+  }
+  main > article li::marker { color: var(--marca-magenta); }
+
+  /* ================= formulário de contato ================= */
+  main form {
     display: grid;
     gap: var(--esp-2);
     max-width: 36rem;
   }
-  .formulario label { display: grid; gap: .25rem; font-weight: 700; }
+  main form fieldset {
+    display: grid;
+    gap: var(--esp-2);
+    padding: var(--esp-3);
+    border: var(--borda);
+    border-radius: var(--raio);
+    background: var(--cor-superficie);
+  }
+  main form legend {
+    padding-inline: .5rem;
+    color: var(--cor-marca);
+    font-size: .95rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+  }
+  main form p {
+    display: grid;
+    gap: .3rem;
+    max-width: none;
+  }
+  main form br { display: none; }
+  main form label { font-size: .95rem; font-weight: 700; }
 
-  .formulario input,
-  .formulario textarea {
+  main form input,
+  main form select,
+  main form textarea {
+    width: 100%;
     padding: .6rem .9rem;
     border: var(--borda);
     border-radius: var(--raio-sm);
@@ -261,6 +359,21 @@
     color: var(--cor-texto);
     font-weight: 400;
   }
-  .formulario textarea { min-height: 8rem; resize: vertical; }
-  .formulario .botao { justify-self: start; }
+  main form textarea { min-height: 8rem; resize: vertical; }
+
+  main form button {
+    justify-self: start;
+    padding: .7rem 1.4rem;
+    border: 0;
+    border-radius: var(--raio-pill);
+    background: var(--cor-botao);
+    color: var(--cor-botao-txt);
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: filter var(--transicao);
+  }
+  main form button:hover { filter: brightness(1.12); }
 }

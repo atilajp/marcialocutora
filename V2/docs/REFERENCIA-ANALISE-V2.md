@@ -23,7 +23,10 @@
 > **Estado do repositório na data:** working tree suja (renomes de CSS não commitados) — ver seção 1.
 > **Nenhum arquivo foi alterado por esta análise.**
 > **Atualizações desde a análise:** `css/files.zip` removido do disco (02/10/2026); diretiva de escopo
-> adicionada a este documento e ao `README.md` (02/10/2026).
+> adicionada a este documento e ao `README.md` (02/10/2026); **links dos CSS corrigidos nos 32 HTML**
+> (`tokens.css`→`token.css`, `componentes.css`→`components.css`, `>>` do FAQ) — seções 3.1 e 3.5 resolvidas (02/10/2026);
+> **mockup de design criado** em `docs/mockup/` (`mockup-home.jpg` para aprovação + `mockup-home.html` como fonte
+> acessível + `README.md` com guia de implementação).
 
 ---
 
@@ -85,11 +88,10 @@ Todas as páginas: `lang="pt-BR"`, charset, viewport, **1 único `<h1>`**, `<bas
 
 ## 3. 🔴 Problemas críticos (com arquivo:linha)
 
-### 3.1 — Dois CSS dão 404 em 100% das páginas
-- **Referenciado:** `css/tokens.css` e `css/componentes.css` (linha 12 e linha 10 dos 32 HTML).
-- **Existente no disco:** `css/token.css` e `css/components.css`.
-- **Causa:** renome manual no working tree, **HTML não atualizado e nada commitado** (`git status` mostra `D V2/css/tokens.css`, `D V2/css/componentes.css`, `?? V2/css/token.css`, `?? V2/css/components.css`).
-- **Impacto:** sem `token.css` nenhuma `var(--*)` está definida → `--cor-fundo`, `--esp-*`, `--borda`, `--largura-texto` etc. ficam inválidos; design inteiro colapsa. `token.css:3` declara `@layer reset, base, layout, componentes, utilitarios` e manda carregar **PRIMEIRO**, mas é o **último** `<link>` e nem chega a carregar → ordem real de camadas fica `reset, base, componentes, layout` (layout vence componentes, inverso do pretendido) e a camada `utilitarios` nunca é criada.
+### 3.1 — Dois CSS dão 404 em 100% das páginas ✅ RESOLVIDO (02/10/2026)
+- **Status atual:** os 32 HTML agora referenciam `css/token.css` e `css/components.css` (corrigido em commit posterior à análise). Nenhuma referência antiga permanece.
+- **Resta (prioridade 7):** `token.css` continua sendo o **último** `<link>`, mas `token.css:3` declara `@layer reset, base, layout, componentes, utilitarios` e manda carregar **PRIMEIRO** → sem mover, a ordem real de camadas fica `reset, base, componentes, layout` (layout vence componentes, inverso do pretendido) e a camada `utilitarios` nunca é criada (`utilities.css` não é linkado).
+- **Registro do problema original:** referenciava `css/tokens.css` e `css/componentes.css` (linhas 12 e 10) enquanto no disco existiam `token.css` e `components.css` (renome não commitado) → 404 nas 32 páginas e todas as `var(--*)` inválidas (design colapsava).
 
 ### 3.2 — `<base href="/V2/">` × sitemap/robots na raiz
 - `<base href="/V2/">` na linha 4 dos 32 HTML.
@@ -108,8 +110,8 @@ Todas as páginas: `lang="pt-BR"`, charset, viewport, **1 único `<h1>`**, `<bas
 - `contato/index.html:42` — `<select id="projeto">` sem `required` (os outros 3 campos têm).
 - Sem `aria-live`/feedback de sucesso/erro, sem honeypot/antispam.
 
-### 3.5 — Erro de digitação
-- `faq/index.html:12` — `<link … href="css/tokens.css">>` (**`>` extra**) → tag malformada, o parser pode renderizar um ">" visível.
+### 3.5 — Erro de digitação ✅ RESOLVIDO (02/10/2026)
+- `faq/index.html:12` tinha `<link … href="css/tokens.css">>` (**`>` extra**) → tag malformada, o parser podia renderizar um ">" visível. Corrigido junto com o rename dos CSS.
 
 ### 3.6 — Zero áudio/vídeo
 - Grep por `<audio>`, `<video>`, `<iframe>` = **0 ocorrências** nos 32 HTML.
@@ -267,10 +269,10 @@ Posicionamento: Márcia Domingos, locutora em **João Pessoa/PB**, voz feminina 
 
 | # | Sev. | Ação | Onde |
 |---|---|---|---|
-| 1 | 🔴 | Apontar `css/tokens.css`→`css/token.css` e `css/componentes.css`→`css/components.css` nos 32 HTML **e commitar o rename** | linha 10 e 12 dos 32 HTML |
+| 1 | ✅ | ~~Apontar `css/tokens.css`→`css/token.css` e `css/componentes.css`→`css/components.css` nos 32 HTML **e commitar o rename**~~ — **corrigido nos 32 HTML em 02/10/2026** (commit pendente na data desta nota) | linha 10 e 12 dos 32 HTML |
 | 2 | 🔴 | Definir raiz de deploy: trocar `<base href="/V2/">` por `/` **ou** corrigir as 32 URLs de sitemap/robots para `/V2/` | `*:4` × `sitemap.xml:3-34`, `robots.txt:3` |
 | 3 | 🔴 | Corrigir skip link (remover `<base>` ou usar caminho absoluto) + `tabindex="-1"` no `main` | `*:17` |
-| 4 | 🔴 | Corrigir `>>` do FAQ | `faq/index.html:12` |
+| 4 | ✅ | ~~Corrigir `>>` do FAQ~~ — **corrigido em 02/10/2026** | `faq/index.html:12` |
 | 5 | 🔴 | Conectar formulário e remover a nota "esqueleto" | `contato/index.html:36,51` |
 | 6 | 🔴 | Inserir áudios/vídeos reais nas 12 áreas de demo | `locucao/*:38`, `voz/*:36` |
 | 7 | 🟠 | Mover `token.css` para o 1º `<link>`, adicionar `utilities.css`, decidir destino de `style.css` | `<head>` dos 32 HTML |
@@ -329,3 +331,30 @@ $html | Select-String -Pattern 'esqueleto|inserir projeto|Inserir aqui|Espaço p
 4. Ao adicionar página: atualizar `sitemap.xml` (hoje 32/32) e o menu/rodapé (header/footer são duplicados em 32 arquivos — alterar em todos).
 5. Conteúdo novo: seguir o tom de `docs/Análise editorial - Márcia Locutora.md` e **nunca inventar clientes, números ou fatos**.
 6. O `seo-content.prompt.md` é o checklist oficial de SEO não executado.
+
+## 12. Estado da implementação do novo layout (02/10/2026)
+
+Transformação completa dos 32 HTML + 5 CSS para o novo estilo (mockup `docs/mockup/mockup-home.jpg`), aprovada pelo usuário. **Não commitada** (último commit `0eae48b`).
+
+### O que foi feito
+- **CSS (5 arquivos reescritos/estendidos):** `token.css` (+`--marca-roxo-esc`, `--preto`), `base.css` (fonte Segoe UI, body flex, `scroll-padding-top`), `layout.css` (régua `--trilho` em `:root`, cabeçalho `.cabecalho__trilho` sticky com nav+`aria-current` e CTA, `.pagina-topo` em degradê, `.hero` com foto via `--hero-img`, faixas `.faixa` c/ variants `--roxo/--preta/--clara/--suave`, rodapé `.rodape__grid` 3 colunas + `.rodape__legal`), `components.css` (lista-cards em ilha branca c/ `:has`, `passos`, `acoes`/`botao--pequeno`, `audio-placeholder`, `main form`, FAB redondo c/ SVG), `utilities.css` (`.pular`→`.skip-link`).
+- **HTML (32 arquivos):** header/footer/skip-link/FAB/tabindex/links de CSS/CTAs/`<ol class="passos">` via script; faixas em **todas** as páginas (total **96** `<section class="faixa">`); home editada à mão (hero c/ foto + 5 faixas + 2 `lista-cards`).
+- **Acessibilidade:** 1 `<h1>`/página; `aria-current="page"` (18: início+locução*8+voz*6+portfólio+sobre+contato); skip-link com caminho absoluto por página (`/V2/...#conteudo`); cada faixa com `aria-labelledby` apontando para `id` único do `<h2>` (2 seções sem h2 — contato/serviços — ficam sem aria, correto); `main tabindex="-1"`.
+
+### Padrão de faixas (ciclo por bloco de h2)
+`1=faixa--roxo, 2=faixa--clara, 3=faixa--suave, 4=faixa--clara` repetindo; blocos = do `<h2>` até o próximo (ou pré-topo/último). Home manual: roxo, clara, suave, preta, clara.
+
+### Armadilhas descobertas (reproduzir com cuidado)
+1. **PowerShell: `,` tem precedência maior que `+`** — `'texto' + $var` como elemento de `@(...)` explode em pedaços (viram linhas separadas via `-join`). Envolver concatenações em parênteses: `('texto' + $var),`.
+2. **`.ps1` sem BOM é lido como ANSI** pelo PS 5.1 → mojibake (`MÃ¡rcia`) em literais com acento. Gravar com `UTF8Encoding($true)` ou manter script ASCII puro.
+3. **`--hero-img` com URL relativa não resolve** no style inline sob `<base>`; usar caminho absoluto `/V2/assets/...`.
+4. **Edge headless:** `--window-size` mínimo ≈ 500 CSS px (não valida 390 de verdade); `--dump-dom` só retorna saída redirecionada via `cmd /c ... > arquivo` (o PowerShell engole). Medir overflow com página de debug injetada pelo servidor de teste.
+
+### Verificação executada (tudo verde)
+`32/32` com tags balanceadas, 1 h1, links na ordem (token→…→utilities), skip-link absoluto, FAB, rodapé, sem mojibake, sem `<p><a>` CTAs pendentes (2 no home são links editoriais legítimos); ids/aria: 0 erros, 0 ids duplicados. Screenshots Edge headless em `%TEMP%\opencode\shots\` (home desktop/mobile, locucao/, publicitaria, faq, sobre, contato, blog post, voz, portfolio).
+
+### Infra de teste (fora do repositório, `%TEMP%\opencode\`)
+- `servidor.ps1` — HTTP estático em `http://localhost:8123/` com rota de debug `/__dbg.html` (mede overflow).
+- `reestilizar.ps1` (passo 1: header/footer/…) e `faixas2.ps1` (passo 2: faixas) — idempotentes.
+- `verificar.ps1`, `verificar-ids.ps1`, `listar.ps1`, `screenshots.ps1`.
+- Backups: `bak-v2-html/` (pré-passagem 1) e `bak-p2/` (pré-passo 2), 32 HTML cada.

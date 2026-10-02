@@ -1,0 +1,457 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>MOCKUP — Home | Márcia Locutora (referência de design, não publicar)</title>
+<meta name="description" content="Mockup estático de layout para aprovação de design. Não é uma página pública.">
+<style>
+/* ============================================================
+   MOCKUP DE DESIGN — Márcia Locutora (home)
+   Objeto: aprovação visual + base de implementação.
+   Variáveis alinhadas a V2/css/token.css para migração futura.
+   ============================================================ */
+:root{
+  /* paleta (idem token.css) */
+  --marca-magenta:#ae115b;
+  --marca-magenta-esc:#8d0e49;
+  --marca-roxo:#3b1b3f;
+  --marca-roxo-esc:#2a1230;
+  --marca-salmao:#f08d8d;
+  --marca-laranja:#f5915e;
+  --preto:#0d0d0d;
+  --branco:#ffffff;
+  --texto:#242424;
+  --texto-2:#4a4a4a;
+  --fundo-claro:#f7f5f6;
+  --borda:#e4dde2;
+  --degrade-logo:linear-gradient(135deg,var(--marca-laranja),var(--marca-magenta));
+  --degrade-cta:linear-gradient(90deg,var(--marca-magenta),#c9257a);
+  /* medidas */
+  --esp-1:.5rem; --esp-2:1rem; --esp-3:1.5rem; --esp-4:2.5rem; --esp-5:4rem;
+  --largura-pagina:72rem;
+  --raio:14px; --raio-pill:999px;
+  --transicao:.2s ease;
+  --sombra:0 10px 30px rgba(42,18,48,.14);
+  --fonte:"Segoe UI",Arial,Helvetica,sans-serif;
+}
+
+/* ---------- reset leve ---------- */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:var(--fonte);color:var(--texto);background:var(--branco);line-height:1.6;-webkit-font-smoothing:antialiased}
+img{max-width:100%;display:block}
+h1,h2,h3{line-height:1.15;margin:0 0 .6em}
+p{margin:0 0 1em}
+ul,ol{margin:0;padding:0}
+a{color:var(--marca-magenta)}
+
+/* ---------- acessibilidade ---------- */
+:focus-visible{outline:3px solid var(--marca-laranja);outline-offset:3px;border-radius:4px}
+.skip-link{position:absolute;left:-9999px;top:0;z-index:100;background:var(--marca-roxo);color:#fff;padding:.75rem 1.25rem;border-radius:0 0 10px 0;font-weight:700}
+.skip-link:focus{left:0}
+.somente-leitor{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms !important;animation-duration:.01ms !important}
+}
+
+/* ---------- utilitárias ---------- */
+.container{width:min(100% - 2.5rem,var(--largura-pagina));margin-inline:auto}
+.secao{padding-block:var(--esp-5)}
+.eyebrow{letter-spacing:.14em}
+.txt-centro{text-align:center}
+
+/* ---------- botões ---------- */
+.btn{display:inline-block;padding:.85rem 1.9rem;border-radius:var(--raio-pill);font-weight:700;font-size:.95rem;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;transition:transform var(--transicao),box-shadow var(--transicao),background var(--transicao);border:2px solid transparent;cursor:pointer}
+.btn--primario{background:var(--degrade-cta);color:#fff}
+.btn--primario:hover{background:var(--marca-magenta-esc);transform:translateY(-2px);box-shadow:0 8px 20px rgba(174,17,91,.4)}
+.btn--contorno{border-color:#fff;color:#fff;background:transparent}
+.btn--contorno:hover{background:rgba(255,255,255,.14)}
+.btn--contorno-escuro{border-color:var(--marca-magenta);color:var(--marca-magenta);background:transparent}
+.btn--contorno-escuro:hover{background:rgba(174,17,91,.08)}
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.cabecalho{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--borda);box-shadow:0 2px 14px rgba(42,18,48,.08)}
+.cabecalho__inner{display:flex;align-items:center;justify-content:space-between;gap:var(--esp-3);min-height:76px}
+.marca{display:flex;align-items:center;gap:.7rem;text-decoration:none}
+.marca__icone{width:42px;height:42px;flex:none}
+.marca__nome{font-weight:800;font-size:1.15rem;color:var(--marca-roxo);line-height:1.1}
+.marca__nome span{display:block;font-weight:600;font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--marca-magenta)}
+.menu{display:flex;align-items:center;gap:1.4rem;list-style:none}
+.menu a{color:var(--marca-roxo);text-decoration:none;font-weight:600;font-size:.95rem;padding:.35rem 0;border-bottom:3px solid transparent}
+.menu a:hover{color:var(--marca-magenta);border-bottom-color:var(--marca-magenta)}
+.menu a[aria-current="page"]{color:var(--marca-magenta);border-bottom-color:var(--marca-magenta)}
+.cabecalho .btn{padding:.65rem 1.4rem;font-size:.82rem}
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{position:relative;min-height:600px;display:flex;align-items:center;background:#140a16;overflow:hidden}
+.hero__bg{position:absolute;inset:0}
+.hero__bg img{width:100%;height:100%;object-fit:cover;object-position:center}
+.hero__scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,4,12,.88) 0%,rgba(10,4,12,.72) 38%,rgba(10,4,12,.18) 68%,rgba(10,4,12,0) 100%)}
+.hero__conteudo{position:relative;z-index:1;padding-block:var(--esp-5);max-width:34rem}
+.hero h1{font-size:clamp(2.1rem,4.4vw,3.4rem);text-transform:uppercase;color:#fff;font-weight:800;letter-spacing:.02em;margin-bottom:.4em}
+.hero h1 em{font-style:normal;background:var(--degrade-logo);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero__sub{font-size:1.18rem;color:#f3e9ef;margin-bottom:1.6rem}
+.hero__acoes{display:flex;gap:1rem;flex-wrap:wrap}
+
+/* ============================================================
+   SEÇÃO ROXA — demos de vídeo
+   ============================================================ */
+.roxo{background:var(--marca-roxo);color:#fff}
+.roxo h2{color:#fff}
+.secao__titulo{font-size:clamp(1.6rem,3vw,2.3rem);text-transform:uppercase;font-weight:800;letter-spacing:.06em;text-align:center;margin-bottom:.35em}
+.secao__sub{text-align:center;color:inherit;opacity:.9;max-width:46rem;margin:0 auto var(--esp-4);font-size:1.08rem}
+.cartoes{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--esp-3)}
+.cartao{background:#fff;border-radius:var(--raio);overflow:hidden;box-shadow:var(--sombra);text-decoration:none;color:var(--texto);display:block;transition:transform var(--transicao),box-shadow var(--transicao)}
+.cartao:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.cartao__titulo{margin:0;padding:.8rem 1rem;font-size:.95rem;letter-spacing:.1em;text-transform:uppercase;text-align:center;color:#333;font-weight:700}
+.thumb{position:relative;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;color:#fff;text-align:center;padding:1rem}
+.thumb__label{position:absolute;top:.7rem;left:.9rem;right:.9rem;font-size:.95rem;font-weight:800;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+.thumb__play{width:64px;height:46px;border-radius:12px;background:rgba(255,255,255,.94);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.thumb__play svg{width:22px;height:22px;fill:#111;margin-left:3px}
+.thumb__yt{position:absolute;right:.7rem;bottom:.6rem;font-size:.72rem;background:rgba(0,0,0,.65);color:#fff;padding:.2rem .55rem;border-radius:6px;letter-spacing:.04em}
+.thumb--1{background:linear-gradient(135deg,#4a1f56 0%,#7c1b5e 55%,#ae115b 100%)}
+.thumb--2{background:linear-gradient(135deg,#1f4a56 0%,#5e1b7c 60%,#ae115b 100%)}
+.thumb--3{background:linear-gradient(135deg,#561f1f 0%,#5e1b5e 55%,#f5915e 130%)}
+.thumb--infantil{background:linear-gradient(135deg,#7b3fb3 0%,#c936a5 55%,#f08d8d 100%)}
+.thumb--jovem{background:linear-gradient(135deg,#275a48 0%,#8e2f7d 60%,#e0559a 100%)}
+
+/* ============================================================
+   SEÇÃO CLARA — estilos de locução (player)
+   ============================================================ */
+.clara{background:#fff}
+.clara h2{color:var(--marca-magenta)}
+.player{background:var(--fundo-claro);border:1px solid var(--borda);border-radius:var(--raio);box-shadow:var(--sombra);overflow:hidden;max-width:64rem;margin-inline:auto}
+.player__topo{display:flex;gap:1.1rem;align-items:center;padding:1.1rem 1.3rem}
+.player__avatar{width:74px;height:74px;border-radius:10px;object-fit:contain;background:#fff;border:1px solid var(--borda);padding:6px}
+.player__meta{flex:1;min-width:0}
+.player__meta strong{display:block;color:var(--marca-roxo);font-size:1rem}
+.player__meta span{font-size:.85rem;color:var(--texto-2)}
+.player__btn{flex:none;width:52px;height:52px;border-radius:50%;border:0;background:var(--degrade-cta);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 16px rgba(174,17,91,.4)}
+.player__btn svg{width:20px;height:20px;fill:#fff;margin-left:3px}
+.wave{display:flex;align-items:center;gap:3px;height:92px;padding:0 1.3rem;background:#fff;border-block:1px solid var(--borda)}
+.wave span{flex:1;background:#9b9b9b;border-radius:2px;min-width:2px}
+.playlist{list-style:none;background:#fff}
+.playlist li{display:flex;justify-content:space-between;gap:1rem;padding:.72rem 1.3rem;border-bottom:1px solid #eee;font-size:.92rem;color:#333}
+.playlist li:last-child{border-bottom:0}
+.playlist b{font-weight:400;color:#222}
+.playlist .dur{color:#777;font-variant-numeric:tabular-nums;flex:none}
+.player__rodape{padding:.7rem 1.3rem;font-size:.8rem;color:#666;background:#fff;border-top:1px solid var(--borda);display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+/* ============================================================
+   SEÇÃO PRETA — banco de talentos
+   ============================================================ */
+.preta{background:var(--preto);color:#f2f2f2}
+.preta__topo{display:grid;grid-template-columns:1.1fr 1fr;gap:var(--esp-4);align-items:start;margin-bottom:var(--esp-4)}
+.preta h2{color:var(--marca-salmao);font-size:clamp(1.7rem,3vw,2.4rem);text-transform:uppercase;font-weight:800;letter-spacing:.05em;margin-bottom:.8em}
+.preta p{font-size:1.08rem;color:#e8e8e8}
+.preta .cartao{color:var(--texto)}
+.cartoes--2{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--esp-3)}
+
+/* ============================================================
+   SEÇÃO SOBRE
+   ============================================================ */
+.sobre__grid{display:grid;grid-template-columns:1.15fr .85fr;gap:var(--esp-5);align-items:start}
+.sobre__marca{display:flex;align-items:center;gap:.8rem;margin-bottom:1.2rem}
+.sobre__marca img{width:56px;height:64px;object-fit:contain}
+.sobre h2{font-size:clamp(1.6rem,2.6vw,2.1rem);text-transform:uppercase;font-weight:800;color:#111;letter-spacing:.03em}
+.sobre p{color:var(--texto-2)}
+.sobre__foto{border-radius:var(--raio);overflow:hidden;box-shadow:var(--sombra);border:6px solid var(--marca-roxo)}
+.sobre__foto img{width:100%;height:100%;object-fit:cover}
+.sobre__credenciais{display:grid;grid-template-columns:repeat(2,1fr);gap:.7rem;list-style:none;margin:1.4rem 0}
+.sobre__credenciais li{background:var(--fundo-claro);border:1px solid var(--borda);border-radius:10px;padding:.7rem .9rem;font-size:.9rem;color:var(--marca-roxo);font-weight:600}
+.sobre__credenciais li b{display:block;color:var(--marca-magenta);font-size:1.15rem}
+
+/* ============================================================
+   FAIXA CTA + FOOTER + WHATSAPP
+   ============================================================ */
+.faixa-cta{background:var(--degrade-cta);color:#fff;text-align:center}
+.faixa-cta h2{color:#fff;font-size:clamp(1.5rem,2.6vw,2rem);text-transform:uppercase;letter-spacing:.05em}
+.faixa-cta p{max-width:44rem;margin:0 auto 1.4rem;color:#ffeef6}
+.faixa-cta .btn{background:#fff;color:var(--marca-magenta)}
+.faixa-cta .btn:hover{background:var(--marca-roxo);color:#fff}
+
+.rodape{background:var(--marca-roxo-esc);color:#e9dfe9;padding-block:var(--esp-4) var(--esp-3);font-size:.95rem}
+.rodape__grid{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:var(--esp-4);margin-bottom:var(--esp-3)}
+.rodape h2{font-size:1rem;letter-spacing:.14em;text-transform:uppercase;color:var(--marca-salmao);margin-bottom:1rem}
+.rodape ul{list-style:none;display:grid;gap:.5rem}
+.rodape a{color:#e9dfe9;text-decoration:none}
+.rodape a:hover{color:#fff;text-decoration:underline}
+.rodape__marca p{color:#cdbfcf;max-width:26rem}
+.rodape__legal{border-top:1px solid rgba(255,255,255,.15);padding-top:1.2rem;color:#bdaec0;font-size:.85rem;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+
+.zap{position:fixed;right:1.4rem;bottom:1.4rem;z-index:60;width:62px;height:62px;border-radius:50%;background:var(--marca-magenta);display:grid;place-items:center;box-shadow:0 10px 26px rgba(0,0,0,.45);border:3px solid #fff;transition:transform var(--transicao)}
+.zap:hover{transform:scale(1.08)}
+.zap svg{width:30px;height:30px;fill:#fff}
+
+/* ---------- responsivo (referência para implementação) ---------- */
+@media (max-width:1024px){
+  .cartoes{grid-template-columns:repeat(2,1fr)}
+  .sobre__grid{grid-template-columns:1fr}
+  .retape__topo{grid-template-columns:1fr}
+}
+@media (max-width:720px){
+  .menu{display:none}
+  .cartoes,.cartoes--2{grid-template-columns:1fr}
+  .hero{min-height:520px}
+  .rodape__grid{grid-template-columns:1fr}
+  .sobre__credenciais{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+<a class="skip-link" href="#conteudo">Pular para o conteúdo principal</a>
+
+<!-- ============================ HEADER ============================ -->
+<header class="cabecalho">
+  <div class="container cabecalho__inner">
+    <a class="marca" href="index.html">
+      <svg class="marca__icone" viewBox="0 0 64 64" aria-hidden="true" focusable="false">
+        <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#f5915e"/><stop offset="1" stop-color="#ae115b"/>
+        </linearGradient></defs>
+        <circle cx="32" cy="28" r="24" fill="url(#g1)"/>
+        <path d="M14 30a18 18 0 0 0 36 0" fill="none" stroke="url(#g1)" stroke-width="4" stroke-linecap="round"/>
+        <line x1="32" y1="48" x2="32" y2="56" stroke="#ae115b" stroke-width="4" stroke-linecap="round"/>
+        <g stroke="#fff" stroke-width="3" stroke-linecap="round">
+          <line x1="22" y1="26" x2="22" y2="32"/><line x1="27" y1="21" x2="27" y2="37"/>
+          <line x1="32" y1="17" x2="32" y2="41"/><line x1="37" y1="22" x2="37" y2="36"/>
+          <line x1="42" y1="26" x2="42" y2="32"/>
+        </g>
+      </svg>
+      <span class="marca__nome">Márcia Locutora<span>Home Studio</span></span>
+    </a>
+
+    <nav aria-label="Navegação principal">
+      <ul class="menu">
+        <li><a href="index.html" aria-current="page">Início</a></li>
+        <li><a href="locucao/">Locução</a></li>
+        <li><a href="voz/">Vozes</a></li>
+        <li><a href="portfolio/">Portfólio</a></li>
+        <li><a href="sobre/">Sobre</a></li>
+        <li><a href="contato/">Contato</a></li>
+      </ul>
+    </nav>
+
+    <a class="btn btn--primario" href="contato/">Solicitar orçamento</a>
+  </div>
+</header>
+
+<main id="conteudo" tabindex="-1">
+
+  <!-- ============================ HERO ============================ -->
+  <section class="hero" aria-labelledby="hero-titulo">
+    <div class="hero__bg" aria-hidden="true">
+      <img src="../../../Images/microphone-headset.png" alt="">
+    </div>
+    <div class="hero__scrim" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero__conteudo">
+        <h1 id="hero-titulo">Voz versátil,<br>projetos <em>com essência</em></h1>
+        <p class="hero__sub">Locutora profissional em João Pessoa para publicidade, vídeo e narração — clareza, emoção e presença em cada gravação.</p>
+        <div class="hero__acoes">
+          <a class="btn btn--primario" href="servicos/">Conheça os serviços</a>
+          <a class="btn btn--contorno" href="voz/">Ouvir demos</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DEMOS DE VÍDEO (ROXO) ==================== -->
+  <section class="secao roxo" aria-labelledby="demos-titulo">
+    <div class="container">
+      <h2 class="secao__titulo" id="demos-titulo">Voz de Márcia Locutora</h2>
+      <p class="secao__sub">Locução profissional para publicidade, vídeo e comunicação. Assista a trabalhos reais:</p>
+
+      <div class="cartoes">
+        <a class="cartao" href="locucao/institucional/" aria-label="Assistir demo de locução institucional (vídeo)">
+          <p class="cartao__titulo">Institucional</p>
+          <div class="thumb thumb--1">
+            <span class="thumb__label">De peito aberto — Boticário</span>
+            <span class="thumb__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="thumb__yt" aria-hidden="true">▶ YouTube</span>
+          </div>
+        </a>
+
+        <a class="cartao" href="locucao/publicitaria/" aria-label="Assistir demo de locução publicitária (vídeo)">
+          <p class="cartao__titulo">Publicidade</p>
+          <div class="thumb thumb--2">
+            <span class="thumb__label">Voz Nordestina: Tá na Caixa</span>
+            <span class="thumb__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="thumb__yt" aria-hidden="true">▶ YouTube</span>
+          </div>
+        </a>
+
+        <a class="cartao" href="locucao/narracao/" aria-label="Assistir demo de manifesto (vídeo)">
+          <p class="cartao__titulo">Manifesto</p>
+          <div class="thumb thumb--3">
+            <span class="thumb__label">Projeto Elas — Diário do Nordeste</span>
+            <span class="thumb__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="thumb__yt" aria-hidden="true">▶ YouTube</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== ESTILOS DE LOCUÇÃO (PLAYER) ==================== -->
+  <section class="secao clara" aria-labelledby="estilos-titulo">
+    <div class="container">
+      <h2 class="secao__titulo" id="estilos-titulo">Estilos de locução</h2>
+      <p class="secao__sub">Versatilidade para se adaptar ao tom que seu projeto precisa, do institucional ao comercial.</p>
+
+      <figure class="player">
+        <div class="player__topo">
+          <img class="player__avatar" src="../../../Images/logo-marcia.png" alt="Logo de Márcia Locutora">
+          <figcaption class="player__meta">
+            <strong>Márcia Domingos — Estilos de locução</strong>
+            <span>Compilação de spots institucionais, publicitários e narrativas</span>
+          </figcaption>
+          <button class="player__btn" type="button" aria-label="Reproduzir demonstração (mockup: player real será embutido na implementação)">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+        </div>
+
+        <div class="wave" aria-hidden="true"><span style="height:44%"></span><span style="height:78%"></span><span style="height:64%"></span><span style="height:21%"></span><span style="height:43%"></span><span style="height:65%"></span><span style="height:20%"></span><span style="height:84%"></span><span style="height:77%"></span><span style="height:77%"></span><span style="height:49%"></span><span style="height:83%"></span><span style="height:49%"></span><span style="height:25%"></span><span style="height:79%"></span><span style="height:46%"></span><span style="height:74%"></span><span style="height:41%"></span><span style="height:78%"></span><span style="height:19%"></span><span style="height:70%"></span><span style="height:57%"></span><span style="height:30%"></span><span style="height:51%"></span><span style="height:45%"></span><span style="height:19%"></span><span style="height:84%"></span><span style="height:19%"></span><span style="height:51%"></span><span style="height:68%"></span><span style="height:71%"></span><span style="height:38%"></span><span style="height:25%"></span><span style="height:29%"></span><span style="height:24%"></span><span style="height:22%"></span><span style="height:76%"></span><span style="height:28%"></span><span style="height:55%"></span><span style="height:83%"></span><span style="height:79%"></span><span style="height:64%"></span><span style="height:26%"></span><span style="height:22%"></span><span style="height:59%"></span><span style="height:85%"></span><span style="height:68%"></span><span style="height:57%"></span><span style="height:76%"></span><span style="height:28%"></span><span style="height:33%"></span><span style="height:79%"></span><span style="height:67%"></span><span style="height:81%"></span><span style="height:59%"></span><span style="height:75%"></span><span style="height:66%"></span><span style="height:30%"></span><span style="height:64%"></span><span style="height:41%"></span><span style="height:68%"></span><span style="height:19%"></span><span style="height:51%"></span><span style="height:26%"></span><span style="height:23%"></span><span style="height:28%"></span><span style="height:75%"></span><span style="height:37%"></span><span style="height:19%"></span><span style="height:75%"></span><span style="height:58%"></span><span style="height:63%"></span><span style="height:73%"></span><span style="height:83%"></span><span style="height:28%"></span><span style="height:24%"></span><span style="height:48%"></span><span style="height:25%"></span><span style="height:79%"></span><span style="height:47%"></span><span style="height:39%"></span><span style="height:44%"></span><span style="height:31%"></span><span style="height:41%"></span><span style="height:52%"></span><span style="height:80%"></span><span style="height:59%"></span><span style="height:31%"></span><span style="height:57%"></span><span style="height:36%"></span><span style="height:43%"></span><span style="height:63%"></span><span style="height:51%"></span><span style="height:32%"></span><span style="height:32%"></span><span style="height:78%"></span></div>
+
+        <ul class="playlist">
+          <li><b>Márcia Domingos — Eudora Dermo Hair Spot</b> <span class="dur">0:15</span></li>
+          <li><b>Márcia Domingos — Primor Histórias Primorosas</b> <span class="dur">0:11</span></li>
+          <li><b>Márcia Domingos — TanaCaixa Nordeste</b> <span class="dur">0:25</span></li>
+          <li><b>Márcia Domingos — Projeto Elas Diário NE</b> <span class="dur">0:10</span></li>
+          <li><b>Márcia Domingos — CasaBoa Viagem</b> <span class="dur">0:18</span></li>
+          <li><b>Márcia Domingos — Desafio Voz à Obra #157</b> <span class="dur">0:12</span></li>
+        </ul>
+
+        <div class="player__rodape">
+          <span>Mockup estático — na implementação: player do SoundCloud ou <code>&lt;audio&gt;</code> nativo com transcrição.</span>
+          <span>6 faixas</span>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ==================== BANCO DE TALENTOS (PRETO) ==================== -->
+  <section class="secao preta" aria-labelledby="talentos-titulo">
+    <div class="container">
+      <div class="preta__topo">
+        <div>
+          <h2 id="talentos-titulo">Banco de talentos</h2>
+          <a class="btn btn--primario" href="banco-de-talentos/">Quero contratar</a>
+        </div>
+        <p>Além da Voz de Márcia Locutora, oferecemos vozes em outros estilos em nosso banco de talentos. Vozes infantis, adolescentes, jovens, cantores para jingle, dentre outras. Conheça algumas:</p>
+      </div>
+
+      <div class="cartoes cartoes--2">
+        <a class="cartao" href="banco-de-talentos/" aria-label="Conhecer a voz da Aurora, voz infantil (vídeo)">
+          <p class="cartao__titulo">Voz da Aurora — Infantil</p>
+          <div class="thumb thumb--infantil">
+            <span class="thumb__label">Voz Infantil (Aurora)</span>
+            <span class="thumb__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="thumb__yt" aria-hidden="true">▶ YouTube</span>
+          </div>
+        </a>
+
+        <a class="cartao" href="banco-de-talentos/" aria-label="Conhecer a voz da Marília, voz jovem (vídeo)">
+          <p class="cartao__titulo">Voz da Marília — Jovem</p>
+          <div class="thumb thumb--jovem">
+            <span class="thumb__label">Vegan Style (Voz juvenil: Marília)</span>
+            <span class="thumb__play" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span>
+            <span class="thumb__yt" aria-hidden="true">▶ YouTube</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================ SOBRE ============================ -->
+  <section class="secao sobre" aria-labelledby="sobre-titulo">
+    <div class="container sobre__grid">
+      <div>
+        <div class="sobre__marca">
+          <img src="../../../Images/logo-marcia.png" alt="">
+          <h2 id="sobre-titulo">Márcia Domingos</h2>
+        </div>
+
+        <p>Conheça a profissional por trás de uma voz que comunica com autenticidade e profissionalismo.</p>
+        <p>Especializada em dar voz a projetos com agilidade e qualidade. Com experiência em Comunicação Social Rádio &amp; TV e pós-graduação em Redação Jornalística, oferece narração com credibilidade, boa dicção e ritmo adequado.</p>
+        <p>Sou nordestina e, se necessário, utilizo meu sotaque paraibano, reforçando a representatividade. Ofereço serviços de voz padrão institucional, documentário, e-learning, voz infantil e caricata, além de locução publicitária com voz natural e narrativas de audiolivros.</p>
+
+        <ul class="sobre__credenciais">
+          <li><b>+5 anos</b> de experiência em locução</li>
+          <li><b>+20 anos</b> com textos e comunicação</li>
+          <li><b>+25 marcas</b> e projetos atendidos</li>
+          <li><b>+3.400 h</b> de gravação e produção</li>
+        </ul>
+
+        <a class="btn btn--contorno-escuro" href="sobre/">Conheça minha trajetória</a>
+      </div>
+
+      <figure class="sobre__foto">
+        <img src="../../../Images/Foto-marcia-domingos_.png" alt="Márcia Domingos sintonizada nos fones diante do microfone em home studio">
+      </figure>
+    </div>
+  </section>
+
+  <!-- ============================ CTA ============================ -->
+  <section class="secao faixa-cta" aria-labelledby="cta-titulo">
+    <div class="container">
+      <h2 id="cta-titulo">Pronto para dar voz ao seu projeto?</h2>
+      <p>Envie o briefing, o roteiro ou apenas a ideia. Você recebe uma proposta com tonalidade, prazo e formato de entrega.</p>
+      <a class="btn" href="contato/">Solicitar orçamento</a>
+    </div>
+  </section>
+
+</main>
+
+<!-- ============================ FOOTER ============================ -->
+<footer class="rodape">
+  <div class="container">
+    <div class="rodape__grid">
+      <div class="rodape__marca">
+        <h2>Márcia Locutora</h2>
+        <p>Locução profissional, narração e produção de áudio em João Pessoa (PB), com atendimento a projetos de todo o Brasil.</p>
+      </div>
+      <nav aria-labelledby="rodape-explorar">
+        <h2 id="rodape-explorar">Explore o site</h2>
+        <ul>
+          <li><a href="locucao/">Locução profissional</a></li>
+          <li><a href="voz/">Vozes e demos</a></li>
+          <li><a href="banco-de-talentos/">Banco de talentos</a></li>
+          <li><a href="servicos/">Serviços complementares</a></li>
+          <li><a href="portfolio/">Portfólio</a></li>
+        </ul>
+      </nav>
+      <nav aria-labelledby="rodape-mais">
+        <h2 id="rodape-mais">Mais</h2>
+        <ul>
+          <li><a href="sobre/">Sobre Márcia Domingos</a></li>
+          <li><a href="depoimentos/">Depoimentos</a></li>
+          <li><a href="faq/">Perguntas frequentes</a></li>
+          <li><a href="blog/">Blog</a></li>
+          <li><a href="contato/">Contato</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="rodape__legal">
+      <p>&copy; 2026 Márcia Locutora. Todos os direitos reservados.</p>
+      <p>Mockup de design — página não indexável, não publicar como está.</p>
+    </div>
+  </div>
+</footer>
+
+<a class="zap" href="contato/" aria-label="Falar com Márcia pelo WhatsApp (link a configurar na implementação)">
+  <svg viewBox="0 0 32 32" aria-hidden="true">
+    <path d="M16 3C9.4 3 4 8.4 4 15c0 2.1.6 4.2 1.6 6L4 28l7.2-1.5c1.2.5 2.5.8 3.8.8 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.8c-1.2 0-2.4-.3-3.5-.8l-.4-.2-4.3.9.9-4.2-.2-.4c-.9-1.4-1.4-3-1.4-4.6 0-5.4 4.4-9.8 9.8-9.8s9.8 4.4 9.8 9.8-4.3 9.3-9.7 9.3zm5.4-7.4c-.3-.1-1.7-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.4z"/>
+  </svg>
+</a>
+
+</body>
+</html>

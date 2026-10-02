@@ -10,8 +10,10 @@
        Só aparecem aqui. O resto do CSS usa os PAPÉIS abaixo. */
     --marca-magenta: #ae115b;   /* botões, títulos, logo */
     --marca-roxo:    #3b1b3f;   /* faixa "Locução Profissional" */
+    --marca-roxo-esc:#2a1230;   /* rodapé (branco 14,8:1) */
     --marca-salmao:  #f08d8d;   /* destaques sobre fundo escuro */
     --marca-laranja: #f5915e;   /* início do degradê do logo */
+    --preto:         #0d0d0d;   /* faixa escura (banco/depoimentos) */
     --degrade-logo:  linear-gradient(135deg, var(--marca-laranja), var(--marca-magenta));
 
     /* --- cor por PAPEL (tema claro) --- */
