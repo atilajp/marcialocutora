@@ -4,17 +4,11 @@
 
   /* --- trilho central reaproveitável ---------------------------------- */
   .cabecalho > *,
-  .rodape > nav {
+  .faixa > *,
+  .hero > *,
+  .rodape > * {
     width: min(100%, var(--largura-pagina));
     margin-inline: auto;
-  }
-
-  /* faixas e hero: o trilho central vem do padding lateral, assim título,
-     parágrafo e lista começam todos na mesma borda esquerda */
-  .faixa,
-  .hero {
-    --trilho: max(var(--esp-3), calc((100% - var(--largura-pagina)) / 2));
-    padding-inline: var(--trilho);
   }
 
   /* --- cabeçalho (opcional: o site usa só o menu flutuante) ------------ */
@@ -35,30 +29,6 @@
     justify-content: space-between;
     gap: var(--esp-2);
     min-height: 3.5rem;
-  }
-
-  .cabecalho .marca { font-size: 1.05rem; font-weight: 700; }
-  .cabecalho .marca a { color: var(--cor-texto); }
-
-  .cabecalho nav ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--esp-1) var(--esp-3);
-    list-style: none;
-    padding: 0;
-  }
-
-  .cabecalho nav a {
-    display: inline-block;
-    padding-block: var(--esp-1);
-    color: var(--cor-texto-2);
-  }
-  .cabecalho nav a:hover { color: var(--cor-marca); }
-
-  /* página atual: cor E sublinhado, para não depender só da cor */
-  .cabecalho nav a[aria-current="page"] {
-    color: var(--cor-marca);
-    text-decoration: underline;
   }
 
   /* --- menu flutuante: botão redondo magenta + painel, sem JS ----------
@@ -115,14 +85,13 @@
     display: flex;
     flex-direction: column;
     gap: var(--esp-3);
-    padding-block: var(--esp-5);
+    padding: var(--esp-5) var(--esp-3);
     background: var(--cor-fundo);
     color: var(--cor-texto);
   }
 
   /* Variantes: redefinem os PAPÉIS só dentro da faixa.
      Todo componente dentro dela se adapta sozinho. */
-  .hero,
   .faixa--roxo,
   .faixa--preta {
     --cor-texto:   #ffffff;
@@ -151,7 +120,7 @@
     display: grid;
     align-items: center;
     min-height: min(100dvh, 46rem);
-    padding-block: var(--esp-5);
+    padding: var(--esp-5) var(--esp-3);
     color: #ffffff;
     background-color: var(--marca-roxo);
     background-image:
@@ -168,12 +137,6 @@
     align-items: center;
   }
 
-  .hero__texto {
-    display: grid;
-    gap: var(--esp-3);
-    justify-items: start;
-  }
-
   .hero__logo { justify-self: center; width: min(100%, 22rem); }
 
   /* --- rodapé ----------------------------------------------------------- */
@@ -185,17 +148,4 @@
     color: var(--cor-texto-2);
     font-size: .9rem;
   }
-
-  .rodape { display: grid; gap: var(--esp-3); }
-  .rodape nav { display: grid; gap: var(--esp-2); text-align: start; }
-  .rodape h2 { font-size: 1.05rem; }   /* h2 de rodapé não compete com os da página */
-
-  .rodape ul {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-    gap: var(--esp-1) var(--esp-3);
-    list-style: none;
-    padding: 0;
-  }
-  .rodape > p { margin-inline: auto; }
 }

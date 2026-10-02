@@ -1,0 +1,266 @@
+@layer componentes {
+
+  /* ================= grade de cards ================= */
+  .lista-cards {
+    display: grid;
+    gap: var(--esp-3);
+    list-style: none;
+    padding: 0;
+    /* auto-fill + min() = nunca mais largo que a tela do celular */
+    grid-template-columns: repeat(auto-fill, minmax(min(var(--card-min), 100%), 1fr));
+    align-items: stretch;
+  }
+
+  /* o container é CADA ITEM, não a lista: a query mede o card, não a tela */
+  .lista-cards > li {
+    container-type: inline-size;
+    container-name: card;
+    display: grid;
+  }
+
+  /* ================= card de vídeo / áudio =================
+     Branco em qualquer faixa, como no site. */
+  .card-video {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: var(--esp-1);
+    padding: var(--esp-2);
+    border-radius: var(--raio-sm);
+    background: var(--cor-cartao);
+    color: var(--cor-cartao-txt);
+  }
+
+  .card-video h3 {
+    text-align: center;
+    color: inherit;
+  }
+
+  /* wrapper do <iframe> do YouTube: mantém 16:9 sem número mágico */
+  .video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: 4px;
+    background: #000;
+  }
+
+  /* player do SoundCloud ocupa a largura toda, altura própria */
+  .audio {
+    width: 100%;
+    min-height: 26rem;
+    border: var(--borda);
+    border-radius: var(--raio-sm);
+  }
+
+  /* ================= card de serviço (ícone + título + itens) ================= */
+  .card-servico {
+    position: relative;
+    display: grid;
+    gap: var(--esp-2);
+    align-content: start;
+    padding: var(--esp-3);
+    border: var(--borda);
+    border-radius: var(--raio);
+    background: var(--cor-superficie);
+    transition: border-color var(--transicao), box-shadow var(--transicao);
+
+    &:hover { border-color: var(--cor-marca); box-shadow: var(--sombra); }
+
+    /* o card inteiro vira alvo do clique, com um único link para leitor de tela */
+    & h3 a {
+      color: inherit;
+      text-decoration: none;
+      &::after { content: ""; position: absolute; inset: 0; }
+    }
+    & h3 a:hover { text-decoration: underline; }
+
+    /* o contorno do teclado cerca o card, não só o texto */
+    &:has(h3 a:focus-visible) { outline: 2px solid var(--cor-marca); outline-offset: 2px; }
+    & h3 a:focus-visible { outline: none; }
+  }
+
+  .card-servico p { max-width: none; color: var(--cor-texto-2); }
+
+  .card-servico__icone {
+    width: 3.5rem;
+    height: 3.5rem;
+    object-fit: contain;
+  }
+
+  .card-servico h3 {
+    font-weight: 700;
+    color: var(--cor-marca);
+  }
+
+  .card-servico ul {
+    display: grid;
+    gap: .25rem;
+    padding-inline-start: 1.1rem;
+    color: var(--cor-texto-2);
+  }
+  .card-servico li::marker { color: var(--cor-marca); }
+
+  /* card largo o bastante → ícone vai para a lateral */
+  @container card (min-width: 24rem) {
+    .card-servico:has(.card-servico__icone) {
+      grid-template-columns: auto 1fr;
+      align-items: start;
+      column-gap: var(--esp-3);
+    }
+    .card-servico__icone { grid-row: span 2; }
+  }
+
+  /* ================= depoimento ================= */
+  .depoimento {
+    display: grid;
+    gap: var(--esp-2);
+    padding: var(--esp-3);
+    border-inline-start: 4px solid var(--marca-magenta);
+    border-radius: 0 var(--raio) var(--raio) 0;
+    background: var(--cor-superficie);
+  }
+  .depoimento p { max-width: none; }
+  .depoimento cite {
+    color: var(--cor-texto-2);
+    font-size: .9rem;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  /* ================= números de autoridade (+5 anos, +25 marcas…) ================= */
+  .numeros {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: var(--esp-3);
+    text-align: center;
+    list-style: none;
+    padding: 0;
+  }
+  .numeros strong {
+    display: block;
+    font-size: clamp(1.75rem, 3vw + 1rem, 2.75rem);
+    line-height: 1.1;
+    color: var(--cor-marca);
+  }
+  .numeros li > span { color: var(--cor-texto-2); }
+
+  /* ================= faixa de logos de clientes ================= */
+  .logos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr));
+    gap: var(--esp-3) var(--esp-4);
+    align-items: center;
+    justify-items: center;
+    list-style: none;
+    padding: 0;
+  }
+  .logos img {
+    max-height: 3.5rem;
+    width: auto;
+    object-fit: contain;
+  }
+
+  /* ================= botão (pílula magenta) ================= */
+  .botao {
+    display: inline-block;
+    padding: .7rem 1.4rem;
+    border: 0;
+    border-radius: var(--raio-pill);
+    background: var(--cor-botao);
+    color: var(--cor-botao-txt);
+    font-size: .9rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    text-decoration: none;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: filter var(--transicao);
+  }
+  .botao:hover { filter: brightness(1.12); color: var(--cor-botao-txt); }
+
+  /* foco do botão: o magenta some em cima do magenta, então usa o texto da faixa */
+  .botao:focus-visible { outline-color: var(--cor-texto); }
+
+  .botao--contorno {
+    background: transparent;
+    color: var(--cor-marca);
+    box-shadow: inset 0 0 0 2px currentColor;
+  }
+  .botao--contorno:hover {
+    background: color-mix(in srgb, currentColor 12%, transparent);
+    color: var(--cor-marca);
+    filter: none;
+  }
+
+  .acoes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--esp-2);
+  }
+
+  /* ================= passos (lista ordenada de verdade, numeração nativa) ================= */
+  .passos {
+    display: grid;
+    gap: var(--esp-2);
+    padding-inline-start: 1.75rem;
+    max-width: var(--largura-texto);
+  }
+  .passos li::marker { color: var(--cor-marca); font-weight: 700; }
+  .passos li { padding-inline-start: var(--esp-1); }
+
+  /* ================= credenciais (formação) ================= */
+  .credenciais {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--esp-1) var(--esp-2);
+    list-style: none;
+    padding: 0;
+  }
+  .credenciais li {
+    padding: .3rem 1rem;
+    border: var(--borda);
+    border-radius: var(--raio-pill);
+    background: var(--cor-superficie);
+  }
+
+  /* link dentro de parágrafo: sublinhado sempre (não depender só da cor) */
+  p > a:not(.botao) { text-decoration: underline; }
+
+  /* ================= botão flutuante do WhatsApp ================= */
+  .fab-whatsapp {
+    position: fixed;
+    inset-block-end: max(var(--esp-2), env(safe-area-inset-bottom));
+    inset-inline-end: var(--esp-2);
+    z-index: 30;
+    display: grid;
+    place-items: center;
+    width: 4.5rem;
+    height: 3.5rem;
+    border-radius: var(--raio-pill);
+    background: var(--cor-botao);
+    box-shadow: var(--sombra);
+    transition: filter var(--transicao), transform var(--transicao);
+  }
+  .fab-whatsapp:hover { filter: brightness(1.12); transform: scale(1.04); }
+  .fab-whatsapp img { width: 2rem; height: 2rem; }
+
+  /* ================= formulário de contato (#contato) ================= */
+  .formulario {
+    display: grid;
+    gap: var(--esp-2);
+    max-width: 36rem;
+  }
+  .formulario label { display: grid; gap: .25rem; font-weight: 700; }
+
+  .formulario input,
+  .formulario textarea {
+    padding: .6rem .9rem;
+    border: var(--borda);
+    border-radius: var(--raio-sm);
+    background: var(--cor-elevado);
+    color: var(--cor-texto);
+    font-weight: 400;
+  }
+  .formulario textarea { min-height: 8rem; resize: vertical; }
+  .formulario .botao { justify-self: start; }
+}

@@ -1,0 +1,95 @@
+/* ORDEM DAS CAMADAS: declarada uma vez, aqui. Carregue token.css PRIMEIRO no <head>.
+   Quem vem depois na lista vence quem vem antes, independente de especificidade. */
+@layer reset, base, layout, componentes, utilitarios;
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+
+    /* --- paleta da marca (valores medidos nos prints do site) ---
+       Só aparecem aqui. O resto do CSS usa os PAPÉIS abaixo. */
+    --marca-magenta: #ae115b;   /* botões, títulos, logo */
+    --marca-roxo:    #3b1b3f;   /* faixa "Locução Profissional" */
+    --marca-salmao:  #f08d8d;   /* destaques sobre fundo escuro */
+    --marca-laranja: #f5915e;   /* início do degradê do logo */
+    --degrade-logo:  linear-gradient(135deg, var(--marca-laranja), var(--marca-magenta));
+
+    /* --- cor por PAPEL (tema claro) --- */
+    --cor-fundo:      #ffffff;
+    --cor-superficie: #fdf5f9;                 /* rosa quase branco */
+    --cor-elevado:    #ffffff;
+    --cor-texto:      #333333;
+    --cor-texto-2:    #6a5666;
+    --cor-marca:      var(--marca-magenta);    /* links, títulos, foco */
+    --cor-botao:      var(--marca-magenta);    /* fundo de botão (branco em cima) */
+    --cor-botao-txt:  #ffffff;
+    --cor-linha:      rgb(59 27 63 / .14);
+    --sombra:         0 1px 2px rgb(59 27 63 / .08), 0 8px 24px rgb(59 27 63 / .10);
+
+    /* cartões de vídeo/áudio são brancos em qualquer tema, como no site */
+    --cor-cartao:     #ffffff;
+    --cor-cartao-txt: #333333;
+
+    /* --- espaço --- */
+    --esp-1: .5rem;
+    --esp-2: 1rem;
+    --esp-3: 1.5rem;
+    --esp-4: 2.5rem;
+    --esp-5: 4rem;
+
+    /* --- forma --- */
+    --raio:      12px;
+    --raio-sm:   8px;
+    --raio-pill: 999px;           /* botões do site são pílula */
+    --borda:     1px solid var(--cor-linha);
+
+    /* --- medidas --- */
+    --largura-texto:  70ch;
+    --largura-pagina: 72rem;
+    --card-min:       clamp(16rem, 30vw, 22rem);
+
+    /* --- movimento --- */
+    --transicao: 160ms ease;
+  }
+
+  /* preto + roxo da marca. O magenta (#ae115b) tem só 3:1 de contraste sobre
+     preto, então o texto de destaque vira salmão; o botão continua magenta
+     com texto branco (6,9:1). */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --cor-fundo:      #000000;
+      --cor-superficie: #200f23;
+      --cor-elevado:    #3b1b3f;
+      --cor-texto:      #ffffff;
+      --cor-texto-2:    #dccbd6;
+      --cor-marca:      var(--marca-salmao);
+      --cor-linha:      rgb(255 255 255 / .16);
+      --sombra:         0 1px 2px rgb(0 0 0 / .5), 0 8px 24px rgb(0 0 0 / .45);
+    }
+  }
+
+  /* escolha manual vence as duas de cima; repete o conjunto INTEIRO */
+  :root[data-tema="dark"] {
+    color-scheme: dark;
+    --cor-fundo:      #000000;
+    --cor-superficie: #200f23;
+    --cor-elevado:    #3b1b3f;
+    --cor-texto:      #ffffff;
+    --cor-texto-2:    #dccbd6;
+    --cor-marca:      var(--marca-salmao);
+    --cor-linha:      rgb(255 255 255 / .16);
+    --sombra:         0 1px 2px rgb(0 0 0 / .5), 0 8px 24px rgb(0 0 0 / .45);
+  }
+
+  :root[data-tema="light"] {
+    color-scheme: light;
+    --cor-fundo:      #ffffff;
+    --cor-superficie: #fdf5f9;
+    --cor-elevado:    #ffffff;
+    --cor-texto:      #333333;
+    --cor-texto-2:    #6a5666;
+    --cor-marca:      var(--marca-magenta);
+    --cor-linha:      rgb(59 27 63 / .14);
+    --sombra:         0 1px 2px rgb(59 27 63 / .08), 0 8px 24px rgb(59 27 63 / .10);
+  }
+}

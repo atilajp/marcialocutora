@@ -1,5 +1,10 @@
 # Projeto HTML — Márcia Locutora
 
+> **⛔ DIRETIVA DE ESCOPO:** todo trabalho neste projeto deve ficar restrito à pasta `V2/`.
+> **Não alterar nenhum arquivo fora de `V2/`** (raiz do repositório, `Images/`, `CNAME`, etc.) —
+> o que está fora está **em produção**. Leitura fora da `V2/` é permitida; escrita, exclusão ou
+> commit de arquivos fora dela exige autorização prévia do usuário. Detalhes: `docs/REFERENCIA-ANALISE-V2.md`.
+
 Esqueleto completo de um novo site, com navegação funcional, estrutura semântica e textos iniciais orientados a acessibilidade, SEO e descoberta por mecanismos de busca/IA.
 
 ## Estrutura
